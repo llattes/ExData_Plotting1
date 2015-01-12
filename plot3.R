@@ -18,8 +18,9 @@ plot3 <- function() {
   with(plottableData, lines(dateAndTime, Sub_metering_1, col = "black"))
   with(plottableData, lines(dateAndTime, Sub_metering_2, col = "red"))
   with(plottableData, lines(dateAndTime, Sub_metering_3, col = "blue"))
-  legend("topright", col = c("black", "red", "blue"), lty = c(1, 1),
-         legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+  legend("top", col = c("black", "red", "blue"), lty = c(1, 1),
+         legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
+         bty = "n")
   dev.copy(png, file = "plot3.png")
   dev.off()
 }
