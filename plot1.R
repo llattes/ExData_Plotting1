@@ -4,8 +4,10 @@ plot1 <- function() {
                 na.strings = c("NA", "N/A", "", NULL, "?"))
   data$Date <- as.Date(x = data$Date, format = "%d/%m/%Y")
   dateRange <- as.Date(x = c("2007-02-01", "2007-02-02"), format = "%Y-%m-%d")
+  # Subset the data to keep only the needed dates.
   plottableData <- data[data$Date >= dateRange[1] &
                           data$Date <= dateRange[2], ]
+  # Draw a red histogram with the given main title and x-label.
   hist(as.numeric(plottableData$Global_active_power),
        main = "Global Active Power", xlab = "Global Active Power (kilowatts)",
        col = "red")
