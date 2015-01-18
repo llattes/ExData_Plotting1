@@ -1,5 +1,5 @@
 plot2 <- function() {
-  library(data.table)
+  require("data.table")
   data <- fread("household_power_consumption.txt", 
                 na.strings = c("NA", "N/A", "", NULL, "?"))
   data$Date <- as.Date(x = data$Date, format = "%d/%m/%Y")
@@ -9,10 +9,11 @@ plot2 <- function() {
   dateAndTime <- as.POSIXct(paste(as.character(plottableData$Date),
                                   plottableData$Time),
                             format="%Y-%m-%d %H:%M:%S")
+  png(filename = "plot2.png", width = 480, height = 480,
+      units = "px")
   # Draw a line plot with x-axis consisting in a combination of Date & Time and
   # Global_active_power in the y-axis.
   plot(x = dateAndTime, y = as.numeric(plottableData$Global_active_power),
        xlab = "", ylab = "Global Active Power (kilowatts)", type = "l")
-  dev.copy(png, file = "plot2.png")
   dev.off()
 }

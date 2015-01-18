@@ -1,5 +1,5 @@
 plot1 <- function() {
-  library(data.table)
+  require("data.table")
   data <- fread("household_power_consumption.txt", 
                 na.strings = c("NA", "N/A", "", NULL, "?"))
   data$Date <- as.Date(x = data$Date, format = "%d/%m/%Y")
@@ -8,9 +8,10 @@ plot1 <- function() {
   plottableData <- data[data$Date >= dateRange[1] &
                           data$Date <= dateRange[2], ]
   # Draw a red histogram with the given main title and x-label.
+  png(filename = "plot1.png", width = 480, height = 480,
+      units = "px")
   hist(as.numeric(plottableData$Global_active_power),
        main = "Global Active Power", xlab = "Global Active Power (kilowatts)",
        col = "red")
-  dev.copy(png, file = "plot1.png")
   dev.off()
 }

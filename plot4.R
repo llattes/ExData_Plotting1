@@ -1,5 +1,5 @@
 plot4 <- function() {
-  library(data.table)
+  require("data.table")
   data <- fread("household_power_consumption.txt", 
                 na.strings = c("NA", "N/A", "", NULL, "?"))
   data$Date <- as.Date(x = data$Date, format = "%d/%m/%Y")
@@ -10,6 +10,8 @@ plot4 <- function() {
                             format="%Y-%m-%d %H:%M:%S")
   plottableData <- plottableData[, dateAndTime:=dateAndTime]
 
+  png(filename = "plot4.png", width = 480, height = 480,
+      units = "px")
   # Setup the 2 by 2 canvas.  
   par(mfrow = c(2, 2), mar = c(4, 4, 2, 1), oma = c(0, 0, 2, 0))
   # Row 1, Col 1 graph.
@@ -24,14 +26,13 @@ plot4 <- function() {
   with(plottableData, lines(dateAndTime, Sub_metering_1, col = "black"))
   with(plottableData, lines(dateAndTime, Sub_metering_2, col = "red"))
   with(plottableData, lines(dateAndTime, Sub_metering_3, col = "blue"))
-  legend("top", col = c("black", "red", "blue"), lty = c(1, 1),
+  legend("topright", col = c("black", "red", "blue"), lty = c(1, 1),
          legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
          cex = 0.75, bty = "n")
   
   # Row 2, Col 2 graph.
   plot(x = dateAndTime, y = as.numeric(plottableData$Global_reactive_power),
        xlab = "datetime", ylab = "Global_reactive_power", type = "l")
-  
-  dev.copy(png, file = "plot4.png")
+
   dev.off()
 }
